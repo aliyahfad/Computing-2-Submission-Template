@@ -3,7 +3,38 @@
 <!doctype html> <!-- This first line tells browsers to expect modern standard html 5 -->
 <html lang="en-gb"> <!-- This is indicates the page is written in British English, useful for accessibility -->
 <meta charset="utf-8"> <!-- This indicates how the file is encoded. utf-8 is standard -->
-<title>Your Web-app Title</title> <!-- All pages need a title, this will be displayed in the browser's title bar -->
+<title>Onitama</title> <!-- All pages need a title, this will be displayed in the browser's title bar -->
 <link rel="stylesheet" href="default.css"> <!-- Import style sheet – default.css -->
 <link rel="icon" href="./assets/favicon.png"> <!-- Import 'Favorites Icon' – favicon.png -->
 <script type="module" src="main.js"></script> <!-- Load the main script. Must be type="module". Have only one of these -->
+
+
+<header>
+    <h1>Onitama</h1>
+</header>
+
+<main>
+    <section id="blue_cards" aria-label="Blue player's cards">
+        <div class="card" id="blue_card_0" tabindex="0"></div>
+        <div class="card" id="blue_card_1" tabindex="0"></div>
+    </section>
+
+    <div id="board_area">
+        <div id="game_board" aria-label="Game board"></div>
+        <div id="spare_card_area" aria-label="Spare card">
+            <div class="card" id="spare_card"></div>
+        </div>
+    </div>
+
+    <section id="red_cards" aria-label="Red player's cards">
+        <div class="card" id="red_card_0" tabindex="0"></div>
+        <div class="card" id="red_card_1" tabindex="0"></div>
+    </section>
+</main>
+
+<div id="turn_indicator" aria-live="polite"></div>
+
+<dialog id="result_dialog" aria-label="Game over">
+    <h2>Game Over</h2>
+    <p id="result_message"></p>
+</dialog>

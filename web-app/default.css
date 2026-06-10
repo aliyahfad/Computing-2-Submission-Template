@@ -1,0 +1,146 @@
+:root {
+    --background: #1a1a2e;
+    --header-bg: #16213e;
+    --board-bg: #0f3460;
+    --board-border: #e94560;
+    --square-bg: #1a1a2e;
+    --red-piece: #e94560;
+    --blue-piece: #4a90d9;
+    --card-bg: #16213e;
+    --card-border: #e94560;
+    --text-colour: #eaeaea;
+    --header-height: 100px;
+
+    font-family: "Georgia", serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: var(--background);
+    color: var(--text-colour);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+header {
+    width: 100%;
+    height: var(--header-height);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    letter-spacing: 0.2em;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    flex: 1;
+}
+
+/* Blue and red card rows */
+#blue_cards,
+#red_cards {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+/* Board + spare card sit side by side */
+#board_area {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* The 5x5 grid — squares added by JS */
+#game_board {
+    display: grid;
+    grid-template-columns: repeat(5, 80px);
+    grid-template-rows: repeat(5, 80px);
+    border: 2px solid var(--board-border);
+    gap: 2px;
+    background: var(--board-border);
+}
+
+.square {
+    background: var(--square-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.piece {
+    width: 60%;
+    height: 60%;
+    border-radius: 50%;
+}
+
+.piece.red { background: var(--red-piece); }
+.piece.blue { background: var(--blue-piece); }
+
+.piece.master {
+    border: 3px solid white;
+}
+
+/* Cards */
+.card {
+    background: var(--card-bg);
+    border: 2px solid var(--card-border);
+    border-radius: 8px;
+    width: 120px;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 0.9rem;
+    padding: 0.5rem;
+}
+
+.card:hover, .card:focus {
+    border-colour: white;
+    outline: 2px solid white;
+}
+
+#spare_card_area {
+    display: flex;
+    align-items: center;
+}
+
+#turn_indicator {
+    font-size: 1.1rem;
+    letter-spacing: 0.1em;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+}
+
+dialog {
+    background: var(--header-bg);
+    color: var(--text-colour);
+    border: 2px solid var(--board-border);
+    border-radius: 8px;
+    padding: 2rem;
+    text-align: center;
+}
+
+dialog h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
