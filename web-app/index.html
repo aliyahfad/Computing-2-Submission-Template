@@ -9,43 +9,69 @@
 <link rel="icon" href="./assets/favicon.png"> <!-- Import 'Favorites Icon' – favicon.png -->
 <script type="module" src="main.js"></script> <!-- Load the main script. Must be type="module". Have only one of these -->
 
-
-<header>
-    <div id="header_left">
-        <h1>ONITAMA</h1>
-    </div>
-    <div id="red_circle"></div>
-</header>
-
-<main>
-    <section id="blue_cards" aria-label="Blue player's cards">
-    <p class="player_label">Blue Player</p>
-    <div class="card_row">
-        <div class="card" id="blue_card_0" tabindex="0"></div>
-        <div class="card" id="blue_card_1" tabindex="0"></div>
-    </div>
-    </section>
-
-    <div id="board_area">
-        <div></div>
-        <div id="game_board" aria-label="Game board"></div>
-        <div id="spare_card_area" aria-label="Spare card">
-            <div class="card" id="spare_card"></div>
+<div id="layout">
+    <div id="content">
+        <header>
+            <div id="header_left">
+                <h1>ONITAMA</h1>
+            </div>
+            <!--<div id="red_circle"></div>-->
+        </header>
+        <div id="below_header">
+    <aside id="rules_panel" aria-label="How to play">
+        <h2>How to Play</h2>
+        <div class="rule">
+            <span class="rule_number">01</span>
+            <p>Select one of your move cards</p>
         </div>
-    </div>
+        <div class="rule">
+            <span class="rule_number">02</span>
+            <p>Click a piece to see valid moves</p>
+        </div>
+        <div class="rule">
+            <span class="rule_number">03</span>
+            <p>Click a highlighted square to move</p>
+        </div>
+        <div class="rule_divider"></div>
+        <h3>Win by</h3>
+        <div class="rule">
+            <span class="rule_icon">⚔</span>
+            <p>Capturing the opponent's master</p>
+        </div>
+        <div class="rule">
+            <span class="rule_icon">⛩</span>
+            <p>Moving your master to the opponent's temple</p>
+        </div>
+    </aside>
+    <main>
+        <section id="blue_cards" aria-label="Blue player's cards">
+            <p class="player_label">Blue Player</p>
+            <div class="card_row">
+                <div class="card" id="blue_card_0" tabindex="0"></div>
+                <div class="card" id="blue_card_1" tabindex="0"></div>
+            </div>
+        </section>
+            <div id="board_area">
+                <div id="game_board" aria-label="Game board"></div>
+                <div id="spare_card_area" aria-label="Spare card">
+                    <p class="spare_label">Spare</p>
+                    <div class="card" id="spare_card"></div>
+                </div>
+            </div>
+        <section id="red_cards" aria-label="Red player's cards">
+            <p class="player_label">Red Player</p>
+            <div class="card_row">
+                <div class="card" id="red_card_0" tabindex="0"></div>
+                <div class="card" id="red_card_1" tabindex="0"></div>
+            </div>
+        </section>
+        <div id="turn_indicator" aria-live="polite"></div>
+    </main>
+</div>
 
-    <section id="red_cards" aria-label="Red player's cards">
-    <p class="player_label">Red PLayer</p>
-    <div class="card_row">
-        <div class="card" id="red_card_0" tabindex="0"></div>
-        <div class="card" id="red_card_1" tabindex="0"></div>
-    </div>
-    </section>
-</main>
-
-<div id="turn_indicator" aria-live="polite"></div>
 
 <dialog id="result_dialog" aria-label="Game over">
-    <h2>Game Over</h2>
-    <p id="result_message">click anywhere to play again</p>
+    <h2 id="result_winner">Game Over</h2>
+    <p id="result_message"></p>
+    <p class="dialog_hint">Click anywhere to play again</p>
 </dialog>

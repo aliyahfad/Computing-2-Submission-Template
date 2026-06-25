@@ -1,4 +1,32 @@
-import R from "./ramda.js";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: onitama.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: onitama.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import R from "./ramda.js";
 
 /**
  * @namespace Onitama
@@ -201,7 +229,7 @@ const initial_board = function () {
  * @returns {Boolean} whether the destination square is within the 5x5 grid
  */
 const is_in_bounds = function (row, col) {
-    return row >= 0 && row < 5 && col >= 0 && col < 5;
+    return row >= 0 &amp;&amp; row &lt; 5 &amp;&amp; col >= 0 &amp;&amp; col &lt; 5;
 };
 
 /**
@@ -213,7 +241,7 @@ const is_in_bounds = function (row, col) {
  * @returns {Boolean} whether the move square is occupied by a friendly piece
  */
 const is_friendly = function (board, player, row, col) {
-    return board[row][col] !== null && board[row][col].player === player;
+    return board[row][col] !== null &amp;&amp; board[row][col].player === player;
 };
 
 
@@ -271,8 +299,8 @@ const exchange_cards = function (card, player, state) {
 const master_alive = function (board, player) {
     return R.any(
         function (square) {
-            return square !== null && square.player === player
-            && square.type === "master";
+            return square !== null &amp;&amp; square.player === player
+            &amp;&amp; square.type === "master";
         },
         R.flatten(board)
     );
@@ -283,7 +311,6 @@ const master_alive = function (board, player) {
 
 /**
  * Creates and returns the initial game state
- * @memberof Onitama
  * @returns {Object} starting state including board, cards, and current player
  */
 
@@ -301,7 +328,6 @@ Onitama.new_game = function () {
 
 /**
  * determines all the legal moves for the card and piece location chosen
- * @memberof Onitama
  * @param {Number} row the row of the piece being moved
  * @param {Number} col teh column of the piece being moved
  * @param {Object} card the applied move card
@@ -312,7 +338,7 @@ Onitama.get_valid_moves = function (row, col, card, state) {
     const player = state.current_player;
     const board = state.board;
     return R.filter(function (destination) {
-        return is_in_bounds(destination.row, destination.col) &&
+        return is_in_bounds(destination.row, destination.col) &amp;&amp;
         !is_friendly(board, player, destination.row, destination.col);
     }, R.map(function (offset) {
         const corrected_offset = apply_orientation(player, offset);
@@ -323,7 +349,6 @@ Onitama.get_valid_moves = function (row, col, card, state) {
 
 /**
  * checks whether the chosen selected destination square is valid
- * @memberof Onitama
  * @param {Object} from the coordinates of the starting piece on the board
  * @param {Object} to the coordinates of the destination square
  * @param {Object} card the selected move card
@@ -333,14 +358,13 @@ Onitama.get_valid_moves = function (row, col, card, state) {
 Onitama.is_valid_move = function (from, to, card, state) {
     const valid = Onitama.get_valid_moves(from.row, from.col, card, state);
     return R.any(function (destination) {
-        return destination.row === to.row && destination.col === to.col;
+        return destination.row === to.row &amp;&amp; destination.col === to.col;
     }, valid);
 };
 
 
 /**
  * returns whether a master has been captured or moved to a temple square
- * @memberof Onitama
  * @param {Object} state reteives the current board layout
  * @returns {Boolean} whether a win condition has been met
  */
@@ -348,13 +372,13 @@ Onitama.is_ended = function (state) {
     const board = state.board;
     const red_wins = (
         board[4][2] !== null
-        && board[4][2].player === "red"
-        && board[4][2].type === "master"
+        &amp;&amp; board[4][2].player === "red"
+        &amp;&amp; board[4][2].type === "master"
     );
     const blue_wins = (
         board[0][2] !== null
-        && board[0][2].player === "blue"
-        && board[0][2].type === "master"
+        &amp;&amp; board[0][2].player === "blue"
+        &amp;&amp; board[0][2].type === "master"
     );
     if (red_wins || blue_wins) {
         return true;
@@ -368,7 +392,6 @@ Onitama.is_ended = function (state) {
 
 /**
  * executes a move and updates the game state
- * @memberof Onitama
  * @param {Object} from the square the piece is moving from
  * @param {Object} to the square the piece is moving to
  * @param {Object} card the move card being played
@@ -411,4 +434,26 @@ Onitama.make_move = function (from, to, card, state) {
 };
 
 Onitama.apply_orientation = apply_orientation;
-export default Object.freeze(Onitama);
+export default Object.freeze(Onitama);</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="Onitama.html">Onitama</a></li></ul><h3>Global</h3><ul><li><a href="global.html#CARDS">CARDS</a></li><li><a href="global.html#apply_orientation">apply_orientation</a></li><li><a href="global.html#distribute_cards">distribute_cards</a></li><li><a href="global.html#exchange_cards">exchange_cards</a></li><li><a href="global.html#initial_board">initial_board</a></li><li><a href="global.html#is_friendly">is_friendly</a></li><li><a href="global.html#is_in_bounds">is_in_bounds</a></li><li><a href="global.html#master_alive">master_alive</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Thu Jun 25 2026 02:43:14 GMT+0100 (British Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

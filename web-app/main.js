@@ -31,6 +31,10 @@ const redraw_board = function () {
                 div.className = "piece " + piece.player;
                 if (piece.type === "master") {
                     div.classList.add("master");
+                    const crown = document.createElement("div");
+                    crown.className = "master_symbol";
+                    crown.textContent = "將";
+                    div.append(crown);
                 }
                 square.append(div);
             }
@@ -52,13 +56,59 @@ const select_card = function (card, card_el) {
     card_el.classList.add("selected");
 };
 
-const redraw_cards = function () {
-    el("red_card_0").textContent = state.red_cards[0].name;
-    el("red_card_1").textContent = state.red_cards[1].name;
-    el("blue_card_0").textContent = state.blue_cards[0].name;
-    el("blue_card_1").textContent = state.blue_cards[1].name;
-    el("spare_card").textContent = state.spare_card.name;
+const render_card_grid = function (card, player) {
+    const grid = document.createElement("div");
+    grid.className = "card_grid";
 
+    const moves = R.map(function (offset) {
+        return Onitama.apply_orientation(player, offset);
+    }, card.moves);
+
+    R.range(0, 5).forEach(function (row) {
+        R.range(0, 5).forEach(function (col) {
+            const cell = document.createElement("div");
+            cell.className = "card_cell";
+
+            const dr = row - 2;
+            const dc = col - 2;
+
+            const is_centre = dr === 0 && dc === 0;
+            const is_move = R.any(function (offset) {
+                return offset.dy === dr && offset.dx === dc;
+            }, moves);
+
+            if (is_centre) {
+                cell.classList.add("card_cell_piece");
+            } else if (is_move) {
+                cell.classList.add("card_cell_move");
+            }
+
+            grid.append(cell);
+        });
+    });
+
+    return grid;
+};
+
+const redraw_cards = function () {
+    const render_card_el = function (card_el, card, player) {
+        card_el.innerHTML = "";
+        const name = document.createElement("div");
+        name.className = "card_name";
+        name.textContent = card.name;
+        card_el.append(name);
+        card_el.append(render_card_grid(card, player));
+    };
+    render_card_el(el("red_card_0"), state.red_cards[0], "red");
+    render_card_el(el("red_card_1"), state.red_cards[1], "red");
+    render_card_el(el("blue_card_0"), state.blue_cards[0], "blue");
+    render_card_el(el("blue_card_1"), state.blue_cards[1], "blue");
+    el("spare_card").innerHTML = "";
+    const spare_name = document.createElement("div");
+    spare_name.className = "card_name";
+    spare_name.textContent = state.spare_card.name;
+    el("spare_card").append(spare_name);
+    el("spare_card").append(render_card_grid(state.spare_card, "red"));
     el("red_card_0").onclick = (
         state.current_player === "red"
         ? function () {
@@ -130,8 +180,8 @@ const check_game_end = function () {
     if (Onitama.is_ended(state)) {
         const winner = (
             state.current_player === "red"
-            ? "blue"
-            : "red"
+            ? "Blue"
+            : "Red"
         );
         el("result_message").textContent = winner + " wins!";
         el("result_dialog").showModal();
